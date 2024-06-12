@@ -1,0 +1,51 @@
+
+1.Most Active Director:
+Assuming your field for director is named director,like mine
+
+SELECT director, COUNT(*) AS show_count FROM netflix_titles GROUP BY director ORDER BY show_count DESC
+   LIMIT 4;
+   
+2.Country with Most Shows/ Content:
+
+   SELECT country, COUNT(*) AS show_count FROM netflix_titles GROUP BY country ORDER BY show_count DESC LIMIT 5;
+   
+3.Number of Shows/series  with "season" in the field of duration:
+SELECT COUNT(*) AS season_count
+FROM netflix_titles
+WHERE duration LIKE '% season%';
+
+3.Number of movies  with "min" in the field of duration:
+SELECT COUNT(*) AS min_count
+FROM netflix_titles
+WHERE field10 LIKE '% min%';
+
+4.Total Number of Shows Released Each from 1925,1942-47,54 till Year 2022:
+   SELECT release_year, COUNT(*) AS total_shows
+   FROM netflix_titles
+   GROUP BY release_year
+   ORDER BY release_year;
+   
+Modified Query to Find the top 5 Release Years with the Most Shows
+
+SELECT release_year, COUNT(*) AS total_shows
+FROM netflix_titles
+GROUP BY release_year
+ORDER BY total_shows DESC
+LIMIT 5;
+
+Popular Genres in Different Countries, we choose to skip null fields by WHERE
+
+  SELECT country, genre, COUNT(*) AS genre_count
+FROM netflix_titles
+WHERE country IS NOT NULL
+GROUP BY country, genre
+ORDER BY country, genre_count DESC;
+
+If i ran it without limit the result is 1179 rows SO i limited it to 15 rows:
+
+SELECT country, genre, COUNT(*) AS genre_count
+FROM netflix_titles
+WHERE country IS NOT NULL
+GROUP BY country, genre
+ORDER BY country, genre_count DESC
+LIMIT 15;
